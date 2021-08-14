@@ -26,5 +26,43 @@ module.exports = appInfo => {
   return {
     ...config,
     ...userConfig,
+    security: {
+      csrf: {
+        enable: false,
+      },
+    },
+    mysql: {
+      client: {
+        host: 'localhost',
+        port: '3306',
+        user: 'root',
+        password: 'htc960313',
+        database: '3d_printer',
+      },
+      app: true,
+      agent: false,
+    },
+    jwt: {
+      secret: '@wuthier!123Abc!:',
+    },
+    emqtt: {
+      client: {
+        // host: 'mqtt://192.168.0.46:1883',
+        host: 'mqtt://127.0.0.1:1883',
+        username: 'admin',
+        password: 'public',
+        clientId: 'egg',
+        options: {
+          keepalive: 60,
+          protocolId: 'MQTT',
+          protocolVersion: 4,
+          clean: true,
+          reconnectPeriod: 1000,
+          connectTimeout: 30 * 1000,
+          rejectUnauthorized: false,
+        },
+        msgMiddleware: [ 'msg2json' ],
+      },
+    },
   }
 }
