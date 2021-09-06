@@ -2,6 +2,8 @@
 
 'use strict'
 
+const path = require('path')
+
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
@@ -14,6 +16,14 @@ module.exports = appInfo => {
 
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1628481048544_3657'
+
+  config.UPLOAD_DIR = path.resolve(__dirname, '..', 'app/public')
+
+  config.multipart = {
+    mode: 'file',
+    fileSize: 1048576000,
+    whitelist: () => true,
+  }
 
   // add your middleware config here
   config.middleware = []

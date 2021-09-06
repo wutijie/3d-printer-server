@@ -18,9 +18,15 @@ module.exports = app => {
 
   // 验证码
   router.get('/captcha', controller.util.captcha)
+  // 文件上传
+  router.post('/uploadfile', controller.util.uploadfile)
+  // 合并文件
+  router.post('/mergefile', controller.util.mergefile)
+  // 检查文件
+  router.post('/checkfile', controller.util.checkfile)
 
   router.group({ name: 'user', prefix: '/user' }, router => {
-    const { login, register, info, detail } = controller.user
+    const { login, register, info } = controller.user
     router.post('/login', login)
     router.post('/register', register)
     router.get('/info', jwt, info)

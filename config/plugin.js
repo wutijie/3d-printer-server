@@ -24,6 +24,6 @@ exports.mysql = {
 }
 
 exports.emqtt = {
-  enable: true,
+  enable: false,
   package: 'egg-emqtt',
 }
