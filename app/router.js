@@ -19,9 +19,9 @@ module.exports = app => {
   // 验证码
   router.get('/captcha', controller.util.captcha)
   // 文件上传
-  router.post('/uploadfile', controller.util.uploadfile)
+  router.post('/uploadfile', jwt, controller.util.uploadfile)
   // 合并文件
-  router.post('/mergefile', controller.util.mergefile)
+  router.post('/mergefile', jwt, controller.util.mergefile)
   // 检查文件
   router.post('/checkfile', jwt, controller.util.checkfile)
 

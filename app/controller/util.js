@@ -52,6 +52,7 @@ class UtilController extends BaseController {
         // console.log('err', err)
       }
     })
+    await ctx.service.tools.saveUploadLogs(`${hash}.${ext}`)
     this.success({
       url: `${this.config.downUrl}/public/${hash}.${ext}`,
     })

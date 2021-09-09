@@ -32,6 +32,18 @@ class ToolService extends Service {
       })
     )
   }
+  // 保存上传记录
+  async saveUploadLogs(fileName) {
+    const { USER_ID } = this.ctx.state
+    const { mysql } = this.app
+    const result = await mysql.insert('UPLOAD_LOGS', {
+      USER_ID,
+      FILE_NAME: fileName,
+      UPLOAD_TIME: new Date(),
+    })
+    const insertSuccess = result.affectedRows === 1
+    return insertSuccess
+  }
 }
 
 module.exports = ToolService
