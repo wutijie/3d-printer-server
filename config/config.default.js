@@ -19,6 +19,8 @@ module.exports = appInfo => {
 
   config.UPLOAD_DIR = path.resolve(__dirname, '..', 'app/public')
 
+  config.downUrl = 'http://106.14.79.5:7001'
+
   config.multipart = {
     mode: 'file',
     fileSize: 1048576000,
@@ -42,12 +44,19 @@ module.exports = appInfo => {
       },
     },
     mysql: {
-      client: {
+      /* client: {
         host: 'localhost',
         port: '3306',
         user: 'root',
         password: 'htc960313',
         database: '3d_printer',
+      }, */
+      client: {
+        host: '106.14.79.5',
+        port: '3306',
+        user: 'root',
+        password: '0624531.',
+        database: 'nuxt_admin',
       },
       app: true,
       agent: false,

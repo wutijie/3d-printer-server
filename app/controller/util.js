@@ -47,10 +47,14 @@ class UtilController extends BaseController {
     const filePath = path.resolve(this.config.UPLOAD_DIR, `${hash}.${ext}`)
     await ctx.service.tools.mergeFile(filePath, hash, size)
     const fileDirPath = path.resolve(this.config.UPLOAD_DIR, hash)
-    this.success({
-      url: `/public/${hash}.${ext}`,
+    await fse.rmdir(fileDirPath, err => {
+      if (err) {
+        // console.log('err', err)
+      }
     })
-    fse.rmdirSync(fileDirPath)
+    this.success({
+      url: `${this.config.downUrl}/public/${hash}.${ext}`,
+    })
   }
   async checkfile() {
     const { ctx } = this
@@ -59,18 +63,22 @@ class UtilController extends BaseController {
 
     let uploaded = false
     let uploadedList = []
+    let url = ''
     if (fse.existsSync(filePath)) {
       // 文件存在
       uploaded = true
+      url = `${this.config.downUrl}/public/${hash}.${ext}`
     } else {
       uploadedList = await this.getUploadedList(path.resolve(this.config.UPLOAD_DIR, hash))
     }
     this.success({
+      url,
       uploaded,
       uploadedList,
     })
   }
   async getUploadedList(dirPath) {
+    // 过滤隐藏文件
     return fse.existsSync(dirPath) ? (await fse.readdir(dirPath)).filter(name => name[0] !== '.') : []
   }
 }

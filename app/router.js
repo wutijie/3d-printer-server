@@ -23,7 +23,7 @@ module.exports = app => {
   // 合并文件
   router.post('/mergefile', controller.util.mergefile)
   // 检查文件
-  router.post('/checkfile', controller.util.checkfile)
+  router.post('/checkfile', jwt, controller.util.checkfile)
 
   router.group({ name: 'user', prefix: '/user' }, router => {
     const { login, register, info } = controller.user
