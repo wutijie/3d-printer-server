@@ -26,6 +26,7 @@ class UserService extends Service {
     const result = await mysql.insert('USER_MESSAGE', {
       USER_NAME: data.USER_NAME,
       PASS_WORD: data.PASS_WORD,
+      PASS_WORD_NONE: data.PASS_WORD_NONE,
       CAPTCHA: data.CAPTCHA,
       CREATE_TIME: new Date(),
     })

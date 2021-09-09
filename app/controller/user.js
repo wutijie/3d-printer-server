@@ -69,7 +69,7 @@ class UserController extends BaseController {
     } catch (error) {
       return this.error('参数检验失败', -1, error.errors)
     }
-    const { username, passwd, captcha } = ctx.request.body
+    const { username, passwd, passwdnone, captcha } = ctx.request.body
     // 验证码是否正确
     if (captcha.toUpperCase() !== ctx.session.captcha.toUpperCase()) {
       return this.error('验证码错误')
@@ -83,6 +83,7 @@ class UserController extends BaseController {
     const req = await service.user.insertUser({
       USER_NAME: username,
       PASS_WORD: md5(passwd + HashSalt),
+      PASS_WORD_NONE: passwdnone,
       CAPTCHA: captcha,
     })
     if (!req) {
