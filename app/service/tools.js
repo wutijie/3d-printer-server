@@ -33,14 +33,16 @@ class ToolService extends Service {
     )
   }
   // 保存上传记录
-  async saveUploadLogs(fileName, size) {
+  async saveUploadLogs(fileHashName, chuckSize, fileName, fileSize) {
     const { USER_ID } = this.ctx.state
     const { mysql } = this.app
     const result = await mysql.insert('UPLOAD_LOGS', {
       USER_ID,
+      FILE_HASH_NAME: fileHashName,
       FILE_NAME: fileName,
       UPLOAD_TIME: new Date(),
-      FILE_SIZE: size,
+      FILE_SIZE: fileSize,
+      FILE_CHUNCK_SIZE: chuckSize,
     })
     const insertSuccess = result.affectedRows === 1
     return insertSuccess

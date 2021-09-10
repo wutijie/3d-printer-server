@@ -43,16 +43,16 @@ class UtilController extends BaseController {
   }
   async mergefile() {
     const { ctx } = this
-    const { ext, size, hash } = ctx.request.body
+    const { ext, chuckSize, hash, fileName, fileSize } = ctx.request.body
     const filePath = path.resolve(this.config.UPLOAD_DIR, `${hash}.${ext}`)
-    await ctx.service.tools.mergeFile(filePath, hash, size)
+    await ctx.service.tools.mergeFile(filePath, hash, chuckSize)
     const fileDirPath = path.resolve(this.config.UPLOAD_DIR, hash)
     await fse.rmdir(fileDirPath, err => {
       if (err) {
         // console.log('err', err)
       }
     })
-    await ctx.service.tools.saveUploadLogs(`${hash}.${ext}`, size)
+    await ctx.service.tools.saveUploadLogs(`${hash}.${ext}`, chuckSize, fileName, fileSize)
     this.success({
       url: `${this.config.downUrl}/public/${hash}.${ext}`,
     })
