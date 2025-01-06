@@ -55,7 +55,7 @@ module.exports = appInfo => {
         host: '106.14.79.5',
         port: '3306',
         user: 'root',
-        password: '0624531.',
+        password: 'WuThier,./748',
         database: 'nuxt_admin',
       },
       app: true,
