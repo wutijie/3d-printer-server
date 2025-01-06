@@ -16,6 +16,15 @@ const createRule = {
   },
 }
 
+const createNormalRule = {
+  username: {
+    type: 'string',
+  },
+  passwd: {
+    type: 'string',
+  },
+}
+
 const HashSalt = ':wuthier!@printer'
 
 class UserController extends BaseController {
@@ -34,6 +43,42 @@ class UserController extends BaseController {
     if (captcha.toUpperCase() !== ctx.session.captcha.toUpperCase()) {
       return this.error('验证码错误')
     }
+    // 该用户是否存在
+    const res = await service.user.findHave(username)
+    if (res.length === 0) {
+      return this.error('该用户不存在')
+    }
+    const { USER_NAME, PASS_WORD, USER_ID } = res[0]
+    if (username !== USER_NAME) {
+      return this.error('用户名错误')
+    }
+    if (md5(passwd + HashSalt) !== PASS_WORD) {
+      return this.error('密码错误')
+    }
+    // 用户信息加密成token 返回
+    const token = jwt.sign({
+      USER_NAME,
+      USER_ID,
+    }, app.config.jwt.secret, {
+      expiresIn: '24h',
+      // expiresIn: '1m',
+    })
+    this.success({
+      token,
+      username,
+    })
+  }
+
+  async loginNormal() {
+    // 登录
+    const { ctx, service, app } = this
+    try {
+      ctx.validate(createNormalRule)
+
+    } catch (error) {
+      return this.error('参数检验失败', -1, error.errors)
+    }
+    const { username, passwd } = ctx.request.body
     // 该用户是否存在
     const res = await service.user.findHave(username)
     if (res.length === 0) {

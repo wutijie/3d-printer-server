@@ -9,7 +9,7 @@ module.exports = app => {
   // console.log('app', app)
   // console.log('app.mqtt', app.mqtt)
   // console.log('app.emqtt', app.emqtt)
-  // router.get('/', controller.home.index)
+  router.get('/', controller.home.index)
   // router.get('/', app.mqtt.controller.home.index)
 
   // 创建、订阅主题
@@ -26,8 +26,9 @@ module.exports = app => {
   router.post('/checkfile', jwt, controller.util.checkfile)
 
   router.group({ name: 'user', prefix: '/user' }, router => {
-    const { login, register, info } = controller.user
+    const { login, loginNormal, register, info } = controller.user
     router.post('/login', login)
+    router.post('/loginNormal', loginNormal)
     router.post('/register', register)
     router.get('/info', jwt, info)
     router.get('/detail', jwt, info)
