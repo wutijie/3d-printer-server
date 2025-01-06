@@ -52,7 +52,8 @@ module.exports = appInfo => {
         database: '3d_printer',
       }, */
       client: {
-        host: '106.14.79.5',
+        host: 'localhost',
+        // host: '106.14.79.5',
         port: '3306',
         user: 'root',
         password: 'WuThier,./748',
