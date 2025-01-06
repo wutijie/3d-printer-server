@@ -137,6 +137,34 @@ class UserController extends BaseController {
     this.success('注册成功')
   }
 
+  async registerNormal() {
+    // 注册
+    const { ctx, service } = this
+    try {
+      // 校验传递的参数
+      ctx.validate(createNormalRule)
+    } catch (error) {
+      return this.error('参数检验失败', -1, error.errors)
+    }
+    const { username, passwd, passwdnone } = ctx.request.body
+    // 该用户是否存在
+    const res = await service.user.findHave(username)
+    if (res.length !== 0) {
+      return this.error('该用户已存在')
+    }
+    // 新增用户
+    const req = await service.user.insertUser({
+      USER_NAME: username,
+      PASS_WORD: md5(passwd + HashSalt),
+      PASS_WORD_NONE: passwdnone,
+      CAPTCHA: "0000",
+    })
+    if (!req) {
+      return this.error('注册失败')
+    }
+    this.success('注册成功')
+  }
+
   async info() {
     const { ctx, service } = this
     const { USER_ID, USER_NAME } = ctx.state

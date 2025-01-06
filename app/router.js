@@ -26,10 +26,11 @@ module.exports = app => {
   router.post('/checkfile', jwt, controller.util.checkfile)
 
   router.group({ name: 'user', prefix: '/user' }, router => {
-    const { login, loginNormal, register, info } = controller.user
+    const { login, loginNormal, register, registerNormal, info } = controller.user
     router.post('/login', login)
     router.post('/loginNormal', loginNormal)
     router.post('/register', register)
+    router.post('/registerNormal', registerNormal)
     router.get('/info', jwt, info)
     router.get('/detail', jwt, info)
   })
