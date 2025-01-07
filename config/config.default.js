@@ -17,9 +17,9 @@ module.exports = appInfo => {
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1628481048544_3657'
 
-  config.UPLOAD_DIR = path.resolve(__dirname, '..', 'app/public')
+  config.UPLOAD_DIR = path.resolve(__dirname, '..', 'app/public/webFile')
 
-  config.downUrl = 'http://106.14.79.5:7001'
+  config.downUrl = 'http://106.14.79.5:7001/public/webFile'
 
   config.multipart = {
     mode: 'file',
@@ -56,7 +56,8 @@ module.exports = appInfo => {
         // host: '106.14.79.5',
         port: '3306',
         user: 'root',
-        password: 'WuThier,./748',
+        password: 'wuthier.',
+        // password: 'WuThier,./748',
         database: 'nuxt_admin',
       },
       app: true,

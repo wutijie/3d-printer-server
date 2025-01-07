@@ -16,7 +16,6 @@ class UtilController extends BaseController {
       noise: 3,
     })
     ctx.session.captcha = captcha.text
-    console.log('captcha', captcha.text)
     ctx.response.type = 'image/svg+xml'
     ctx.body = captcha.data
   }
@@ -26,6 +25,10 @@ class UtilController extends BaseController {
     /* if (Math.random() > 0.5) {
       return (this.ctx.status = 500)
     } */
+    // 判断上传文件夹是否存在 
+    if (!fse.existsSync(this.config.UPLOAD_DIR)) {
+      await fse.mkdir(this.config.UPLOAD_DIR)
+    }
     const { ctx } = this
     const file = ctx.request.files[0]
     const { hash, name } = ctx.request.body
@@ -54,7 +57,7 @@ class UtilController extends BaseController {
     })
     await ctx.service.tools.saveUploadLogs(`${hash}.${ext}`, chuckSize, fileName, fileSize)
     this.success({
-      url: `${this.config.downUrl}/public/${hash}.${ext}`,
+      url: `${this.config.downUrl}/${hash}.${ext}`,
     })
   }
   async checkfile() {
@@ -68,7 +71,7 @@ class UtilController extends BaseController {
     if (fse.existsSync(filePath)) {
       // 文件存在
       uploaded = true
-      url = `${this.config.downUrl}/public/${hash}.${ext}`
+      url = `${this.config.downUrl}/${hash}.${ext}`
     } else {
       uploadedList = await this.getUploadedList(path.resolve(this.config.UPLOAD_DIR, hash))
     }
