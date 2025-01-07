@@ -35,6 +35,13 @@ module.exports = app => {
     router.get('/detail', jwt, info)
   })
 
+  router.group({ name: 'user', prefix: '/programming' }, router => {
+    const { insertType, insertLang, getTypeLang } = controller.programming
+    router.post('/insertType', insertType)
+    router.post('/insertLang', insertLang)
+    router.post('/getTypeLang', getTypeLang)
+  })
+
   // router.group({ name: 'mqtt', prefix: '/mqtt' }, router => {
   //   const { sendTest } = controller.mqtt
   //   router.get('/sendTest', sendTest)
