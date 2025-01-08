@@ -39,6 +39,16 @@ class ProgrammingService extends Service {
         })
         return result
     }
+    // 查询语言根据id
+    async findLangById(id) {
+        const { mysql } = this.app
+        const result = await mysql.select('PROGRAMMING_LANG', {
+            where: {
+                LANG_ID: id,
+            },
+        })
+        return result
+    }
     // 新增类型
     async insertType(data) {
         const { mysql } = this.app

@@ -67,6 +67,17 @@ class ProgrammingController extends BaseController {
     this.success(typeLists)
   }
 
+  // 根据id获取语言
+  async getLangById() {
+    const { ctx, service } = this
+    const { id } = ctx.request.query
+    const res = await service.programming.findLangById(id)
+    if(res.length > 0) {
+      return this.success(res[0])
+    }
+    this.success(null)
+  }
+
 }
 
 module.exports = ProgrammingController
