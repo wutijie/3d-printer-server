@@ -30,6 +30,11 @@ module.exports = appInfo => {
   // add your middleware config here
   config.middleware = []
 
+  config.cors = {
+    origin: '*',
+    allowMethods: 'GET,POST'
+  }
+
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',

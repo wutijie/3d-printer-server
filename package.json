@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "egg": "^2.15.1",
+    "egg-cors": "^3.0.1",
     "egg-emqtt": "^1.0.0",
     "egg-mysql": "^3.0.0",
     "egg-router-group": "^1.1.0",

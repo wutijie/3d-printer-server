@@ -27,3 +27,8 @@ exports.emqtt = {
   enable: false,
   package: 'egg-emqtt',
 }
+
+exports.cors = {
+  enable: true,
+  package: 'egg-cors'
+}
