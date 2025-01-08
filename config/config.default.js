@@ -30,6 +30,13 @@ module.exports = appInfo => {
   // add your middleware config here
   config.middleware = []
 
+  // 跨域
+  config.security = {
+    csrf: {
+      enable: false
+    }
+  }
+
   config.cors = {
     origin: '*',
     allowMethods: 'GET,POST'
